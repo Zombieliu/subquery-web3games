@@ -1,0 +1,128 @@
+#type transfer @entity {
+#
+#  id: ID! #id is a required field
+#
+#  from: String!
+#
+#  to: String #filed2 is an optional field
+#
+#  amount: BigInt
+#}
+
+type NewAccountCreate @entity {
+
+  id: ID! #id is a required field
+
+  Account: String!
+
+  Balance: BigInt
+
+}
+
+type AccountTransfer @entity {
+
+  id: ID! #id is a required field
+
+  FromAccount: String!
+
+  ToAccount:String!
+
+  Balance: BigInt!
+
+}
+
+#type BlockTs @entity {
+#  # BlockHash
+#  id: ID!
+#
+#  blockHeight: BigInt!
+#
+#  timestamp: Date!
+#}
+
+type BlockInfo @entity {
+  id: ID!
+
+  BlockHeight: String!
+
+  ParentBlockHash:String!
+
+  ExtrinsicNumber: Int!
+
+  State:String!
+
+  ContentHash:String
+
+  ExtrinsicsHash:String!
+
+  EventNumber:Int!
+
+  timestamp: Date!
+}
+
+
+type ExtrinsicInfo @entity {
+  id: ID!
+
+  BlockHash: BlockInfo!
+
+  ExtrinsicHeight:String!
+
+  Signer:String!
+
+  method:String!
+
+  meta:String
+
+  nonce:BigInt!
+
+  tip:BigInt
+
+  success:Boolean!
+
+  timestamp: Date!
+}
+
+
+
+type EventInfo @entity {
+    id: ID!
+
+    ExtrinsicHash:ExtrinsicInfo
+
+    EventID:Int
+
+    method:String
+
+    section:String
+
+    meta:String
+
+    data:String
+}
+
+
+
+type AccountBalance @entity {
+  id: ID! #id is a required field
+  account: String #This is a Polkadot address
+  balance: BigInt # This is the amount of DOT
+}
+
+type TokenFungibleCreate @entity {
+  id: ID!
+  tokenId : BigInt!
+  account : String!
+  name:String!
+  symbol:String!
+  decimals:Int!
+}
+
+type TokenNonFungibleCreate @entity {
+  id: ID!
+  tokenId : BigInt!
+  account : String!
+  name:String!
+  symbol:String!
+  base_uri:String!
+}

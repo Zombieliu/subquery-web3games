@@ -1,0 +1,47 @@
+specVersion: 0.2.0
+name: test
+version: 0.0.1
+description: 'subquery-web3games'
+repository: 'https://github.com/Zombieliu/subquery-web3games.git'
+schema:
+  file: ./schema.graphql
+network:
+  endpoint: wss://chain-dev.web3games.org
+  genesisHash: '0xe61d048fbc1e92aaf0275230d993f0f1bd194321f2ce5335d29caff098da7a86'
+dataSources:
+  - kind: substrate/Runtime
+    startBlock: 1
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBlockInfo
+          kind: substrate/BlockHandler
+        - handler: handleExtrinsic
+          kind: substrate/CallHandler
+        - handler: handleEvent
+          kind: substrate/EventHandler
+        - handler: handleAccountTransfer
+          kind: substrate/EventHandler
+          filter:
+            module: balances
+            method: Transfer
+        - handler: handleNewAccountCreate
+          kind: substrate/EventHandler
+          filter:
+            module: balances
+            method: Endowed
+        - handler: handleAccountBalance
+          kind: substrate/EventHandler
+          filter:
+            module: balances
+            method: Deposit
+        - handler: handleTokenFungibleCreate
+          kind: substrate/EventHandler
+          filter:
+            module: tokenFungible
+            method: TokenCreated
+        - handler: handleTokenNonFungibleCreate
+          kind: substrate/EventHandler
+          filter:
+            module: tokenNonFungible
+            method: TokenCreated
