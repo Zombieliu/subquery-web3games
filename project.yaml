@@ -2,7 +2,7 @@ specVersion: 0.2.0
 name: test
 version: 0.0.1
 description: 'subquery-web3games'
-repository: 'https://github.com/Zombieliu/subquery-web3games.git'
+repository: ''
 schema:
   file: ./schema.graphql
 network:
