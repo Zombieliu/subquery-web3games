@@ -4,10 +4,11 @@
   "description": "w3g",
   "main": "dist/index.js",
   "scripts": {
+    "start":"docker-compose pull && docker-compose up",
     "build": "tsc -b",
     "prepack": "rm -rf dist && npm build",
     "test": "jest",
-    "codegen": "./node_modules/.bin/subql codegen"
+    "codegen": "./node_modules/.bin/subql codegen",
   },
   "homepage": "https://github.com/subquery/subql-starter",
   "repository": "github:subquery/subql-starter",
