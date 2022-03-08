@@ -23,11 +23,15 @@ type AccountTransfer @entity {
 
   id: ID! #id is a required field
 
+  ExtrinsicHeight: String!
+
   FromAccount: String!
 
   ToAccount:String!
 
   Balance: BigInt!
+
+  timestamp:Date!
 
 }
 
@@ -68,7 +72,7 @@ type ExtrinsicInfo @entity {
 
   ExtrinsicHeight:String!
 
-  Signer:String!
+  Signer:Account!
 
   method:String!
 
@@ -101,7 +105,9 @@ type EventInfo @entity {
     data:String
 }
 
-
+type Account @entity{
+  id:ID!
+}
 
 type AccountBalance @entity {
   id: ID! #id is a required field

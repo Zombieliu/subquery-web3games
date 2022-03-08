@@ -1,7 +1,7 @@
 import {SubstrateEvent, SubstrateExtrinsic} from "@subql/types";
 import {
     AccountTransfer, NewAccountCreate,
-    AccountBalance, TokenFungibleCreate, TokenNonFungibleCreate, BlockInfo, ExtrinsicInfo, EventInfo
+    AccountBalance, TokenFungibleCreate, TokenNonFungibleCreate, BlockInfo, ExtrinsicInfo, EventInfo, Account
 } from "../types";
 import {Balance,AccountId,Moment} from "@polkadot/types/interfaces";
 import {Compact} from '@polkadot/types';
@@ -35,7 +35,10 @@ export async function handleExtrinsic(extrinsic: SubstrateExtrinsic): Promise<vo
 
     record.ExtrinsicHeight = `${extrinsic.block.block.header.number}-${extrinsic.idx}`;
 
-    record.Signer = extrinsic.extrinsic.signer.toString();
+    // record.Signer = extrinsic.extrinsic.signer.toString();
+    await makeSureAccount((extrinsic.extrinsic.signer as unknown as AccountId).toString());
+    record.SignerId = (extrinsic.extrinsic.signer as unknown as AccountId).toString();
+
     record.method = extrinsic.extrinsic.method.toString();
     record.nonce = extrinsic.extrinsic.nonce.toBigInt();
     record.tip = extrinsic.extrinsic.tip.toBigInt();
@@ -45,6 +48,14 @@ export async function handleExtrinsic(extrinsic: SubstrateExtrinsic): Promise<vo
     record.timestamp = new Date(moment.toNumber());
     await record.save();
 }
+
+async function makeSureAccount(accountId:string) :Promise<void>{
+    const checkAccount = await Account.get(accountId);
+    if (!checkAccount){
+        await new Account(accountId).save();
+    }
+}
+
 
 async function makeSureBlock(block) :Promise<void>{
     const checkBlock = await BlockInfo.get(block.block.header.hash.toString());
@@ -84,12 +95,14 @@ async function makeSureExtrinsic(extrinsic) :Promise<void>{
 
 export async function handleAccountTransfer(event: SubstrateEvent): Promise<void> {
 
-    const record = new AccountTransfer(`${event.block.block.header.number.toString()}--${event.idx}`)
+    const record = new AccountTransfer(`${event.extrinsic.extrinsic.hash.toString()}`)
     const {event: {data: [from,to,amount]}} = event;
-
+    record.ExtrinsicHeight = `${event.block.block.header.number.toString()}-${event.extrinsic.idx}`
     record.FromAccount = (from as AccountId).toString();
     record.ToAccount = (to as AccountId).toString();
     record.Balance = (amount as Balance).toBigInt();
+    const moment = event.extrinsic.block.block.extrinsics[0].args[0] as Compact<Moment>
+    record.timestamp = new Date(moment.toNumber());
     await record.save();
 }
 
