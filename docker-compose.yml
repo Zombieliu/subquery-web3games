@@ -26,7 +26,7 @@ services:
       - -f=/app
 #      - --db-schema=app
       - --local
-      - --batch-size=10
+      - --batch-size=1000
 #      - --force-clean
   graphql-engine:
     image: onfinality/subql-query:latest
