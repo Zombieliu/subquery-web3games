@@ -6,8 +6,8 @@ repository: ''
 schema:
   file: ./schema.graphql
 network:
-  endpoint: wss://chain-dev.web3games.org
-  genesisHash: '0xe61d048fbc1e92aaf0275230d993f0f1bd194321f2ce5335d29caff098da7a86'
+  endpoint: wss://chain-dev.web3games.org/
+  genesisHash: '0x617e197b70b9580665a0640623ffe5edb559025e7d8989ef03f91ed5cf07af0c'
 dataSources:
   - kind: substrate/Runtime
     startBlock: 1

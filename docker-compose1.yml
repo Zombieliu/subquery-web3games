@@ -15,32 +15,30 @@ services:
       - "postgres"
     restart: always
     environment:
-      DB_USER: henry
-      DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games
-      DB_HOST: pgm-3ns8ck0510ci7s31.pg.rds.aliyuncs.com
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_DATABASE: postgres
+      DB_HOST: postgres
       DB_PORT: 5432
     volumes:
       - ./:/app
     command:
       - -f=/app
-#      - --db-schema=app
-      - --local
+      - --db-schema=app
       - --batch-size=10
-#      - --force-clean
+      - --force-clean
   graphql-engine:
     image: onfinality/subql-query:latest
     ports:
       - 3000:3000
     depends_on:
       - "postgres"
-      - "subquery-node"
     restart: always
     environment:
-      DB_USER: henry
-      DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games
-      DB_HOST: pgm-3ns8ck0510ci7s31.pg.rds.aliyuncs.com
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_DATABASE: postgres
+      DB_HOST: postgres
       DB_PORT: 5432
     command:
       - --name=app
