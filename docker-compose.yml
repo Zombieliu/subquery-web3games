@@ -31,7 +31,7 @@ services:
       - -f=/public
       - --db-schema=public
 #      - --local
-      - --batch-size=10
+      - --batch-size=1000
 #      - --force-clean
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://subquery-node:3000/ready"]
