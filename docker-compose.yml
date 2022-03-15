@@ -26,18 +26,18 @@ services:
       DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
       DB_PORT: 5432
     volumes:
-      - ./:/app
+      - ./:/public
     command:
-      - -f=/app
+      - -f=/public
       - --db-schema=public
 #      - --local
       - --batch-size=10
 #      - --force-clean
     healthcheck:
-      test: [ "CMD-SHELL", "exit 0" ]
-      interval: 5s
+      test: [ "CMD", "curl", "-f", "http://subquery-node:3000/ready"]
+      interval: 3s
       timeout: 5s
-      retries: 5
+      retries: 10
   graphql-engine:
     image: onfinality/subql-query:latest
     ports:
@@ -55,6 +55,6 @@ services:
       DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
       DB_PORT: 5432
     command:
-      - --name=app
+      - --name=public
       - --playground
       - --indexer=http://subquery-node:3000
