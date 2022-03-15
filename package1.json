@@ -1,0 +1,28 @@
+{
+  "name": "subquery-web3games",
+  "version": "0.0.1",
+  "description": "w3g",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "docker-compose pull && docker-compose up",
+    "build": "tsc -b",
+    "prepack": "rm -rf dist && npm build",
+    "test": "jest",
+    "codegen": "./node_modules/.bin/subql codegen"
+  },
+  "homepage": "",
+  "repository": "",
+  "files": [
+    "dist",
+    "schema.graphql",
+    "project.yaml"
+  ],
+  "author": "henry",
+  "license": "MIT",
+  "devDependencies": {
+    "@polkadot/api": "^7",
+    "@subql/types": "latest",
+    "typescript": "4.2.4",
+    "@subql/cli": "latest"
+  }
+}

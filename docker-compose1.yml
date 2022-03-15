@@ -9,10 +9,16 @@ services:
       - .data/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   subquery-node:
     image: onfinality/subql-node:latest
     depends_on:
-      - "postgres"
+      "postgres":
+        condition: service_healthy
     restart: always
     environment:
       DB_USER: postgres
@@ -26,13 +32,19 @@ services:
       - -f=/app
       - --db-schema=app
       - --batch-size=10
-      - --force-clean
+#      - --force-clean
+    healthcheck:
+      test: [ "CMD-SHELL", "exit 0" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   graphql-engine:
     image: onfinality/subql-query:latest
     ports:
       - 3000:3000
     depends_on:
       - "postgres"
+      - "subquery-node"
     restart: always
     environment:
       DB_USER: postgres
