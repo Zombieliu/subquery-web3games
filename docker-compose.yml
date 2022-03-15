@@ -43,9 +43,9 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      "postgres":
+     "postgres":
         condition: service_healthy
-      "subquery-node":
+     "subquery-node":
         condition: service_healthy
     restart: always
     environment:
