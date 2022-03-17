@@ -9,36 +9,50 @@ services:
       - .data/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   subquery-node:
     image: onfinality/subql-node:latest
     depends_on:
       - "postgres"
     restart: always
     environment:
-      DB_USER: henry
-      DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games
-      DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_DATABASE: postgres
+      DB_HOST: postgres
       DB_PORT: 5432
     volumes:
       - ./:/app
     command:
       - -f=/app
       - --db-schema=app
-      - --batch-size=10
-      - --force-clean
+#      - --local
+      - --batch-size=1000
+#      - --force-clean
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://subquery-node:3000/ready"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
   graphql-engine:
     image: onfinality/subql-query:latest
     ports:
       - 3000:3000
     depends_on:
-      - "postgres"
+     "postgres":
+        condition: service_healthy
+     "subquery-node":
+        condition: service_healthy
     restart: always
     environment:
-      DB_USER: henry
-      DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games
-      DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_DATABASE: postgres
+      DB_HOST: postgres
       DB_PORT: 5432
     command:
       - --name=app
