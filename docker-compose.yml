@@ -34,7 +34,7 @@ services:
       - --batch-size=1000
 #      - --force-clean
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://subquery-node:3000/ready"]
+      test: [ "CMD", "curl", "-f", "http://subquery-node:3003/ready"]
       interval: 3s
       timeout: 5s
       retries: 10
