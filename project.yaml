@@ -7,7 +7,7 @@ schema:
   file: ./schema.graphql
 network:
   endpoint: wss://devnet.web3games.org/
-  genesisHash: '0x54b5db114795a143bf63a9ee896286d3d36b2ba9c8ad994df402486a993d9a12'
+  genesisHash: '0x024bf352d2ff26bf351b389ce7239a8484ab3318f63bf4a460abe1ec6ef87ab7'
 dataSources:
   - kind: substrate/Runtime
     startBlock: 1
