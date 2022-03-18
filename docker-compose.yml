@@ -22,7 +22,7 @@ services:
     environment:
       DB_USER: henry
       DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games_testnet
+      DB_DATABASE: web3games_devnet
       DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
       DB_PORT: 5432
     volumes:
@@ -51,7 +51,7 @@ services:
     environment:
       DB_USER: henry
       DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games_testnet
+      DB_DATABASE: web3games_devnet
       DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
       DB_PORT: 5432
     command:
