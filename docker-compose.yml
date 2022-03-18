@@ -22,7 +22,7 @@ services:
     environment:
       DB_USER: henry
       DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games_devnet
+      DB_DATABASE: web3games_testnet
       DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
       DB_PORT: 5432
     volumes:
@@ -41,7 +41,7 @@ services:
   graphql-engine:
     image: onfinality/subql-query:latest
     ports:
-      - 3003:3000
+      - 3000:3000
     depends_on:
      "postgres":
         condition: service_healthy
@@ -51,10 +51,10 @@ services:
     environment:
       DB_USER: henry
       DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games_devnet
+      DB_DATABASE: web3games_testnet
       DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
       DB_PORT: 5432
     command:
       - --name=public
       - --playground
-      - --indexer=http://subquery-node:3003
+      - --indexer=http://subquery-node:3000
