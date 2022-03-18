@@ -57,4 +57,4 @@ services:
     command:
       - --name=public
       - --playground
-      - --indexer=http://subquery-node:3000
+      - --indexer=http://subquery-node:3003
