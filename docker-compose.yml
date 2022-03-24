@@ -20,10 +20,10 @@ services:
       - "postgres"
     restart: always
     environment:
-      DB_USER: henry
-      DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games_devnet
-      DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_DATABASE: postgres
+      DB_HOST: postgres
       DB_PORT: 5432
     volumes:
       - ./:/public
@@ -32,7 +32,7 @@ services:
       - --db-schema=public
 #      - --local
       - --batch-size=1000
-#      - --force-clean
+      - --force-clean
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://subquery-node:3000/ready"]
       interval: 3s
@@ -49,10 +49,10 @@ services:
         condition: service_healthy
     restart: always
     environment:
-      DB_USER: henry
-      DB_PASS: Liuhongqi321
-      DB_DATABASE: web3games_devnet
-      DB_HOST: pgm-3ns8ck0510ci7s311o.pg.rds.aliyuncs.com
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_DATABASE: postgres
+      DB_HOST: postgres
       DB_PORT: 5432
     command:
       - --name=public
