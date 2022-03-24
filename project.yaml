@@ -49,4 +49,4 @@ dataSources:
           kind: substrate/EventHandler
           filter:
             module: ethereum
-            method: transact
+            method: Executed
