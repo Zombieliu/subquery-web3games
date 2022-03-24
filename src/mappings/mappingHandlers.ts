@@ -1,7 +1,7 @@
 import {SubstrateEvent, SubstrateExtrinsic} from "@subql/types";
 import {
     AccountTransfer, NewAccountCreate,
-    AccountBalance, TokenFungibleCreate, TokenNonFungibleCreate, BlockInfo, ExtrinsicInfo, EventInfo, Account
+    AccountBalance, TokenFungibleCreate, TokenNonFungibleCreate, BlockInfo, ExtrinsicInfo, EventInfo, Account, EvmInfo
 } from "../types";
 import {Balance,AccountId,Moment} from "@polkadot/types/interfaces";
 import {Compact} from '@polkadot/types';
@@ -92,6 +92,18 @@ async function makeSureExtrinsic(extrinsic) :Promise<void>{
 //     record.timestamp = new Date(moment.toNumber());
 //     await record.save();
 // }
+
+export async function handleEvmInfo(event: SubstrateEvent): Promise<void> {
+
+    const record = new EvmInfo(event.extrinsic.extrinsic.hash.toString())
+    const {event: {data: [from,to,transaction_hash,exit_reason]}} = event;
+    record.from = from.toString();
+    record.to = to.toString();
+    record.transaction_hash = transaction_hash.toString();
+    record.exit_reason = exit_reason.toString();
+    await record.save();
+}
+
 
 export async function handleAccountTransfer(event: SubstrateEvent): Promise<void> {
 

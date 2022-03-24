@@ -45,3 +45,8 @@ dataSources:
           filter:
             module: tokenNonFungible
             method: TokenCreated
+        - handler: handleEvmInfo
+            kind: substrate/EventHandler
+            filter:
+              module: ethereum
+              method: transact

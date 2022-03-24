@@ -87,7 +87,18 @@ type ExtrinsicInfo @entity {
   timestamp: Date!
 }
 
+type EvmInfo @entity {
+  id: ID!
 
+  from:String!
+
+  to: String!
+
+  transaction_hash:String!
+
+  exit_reason:String!
+
+}
 
 type EventInfo @entity {
     id: ID!
