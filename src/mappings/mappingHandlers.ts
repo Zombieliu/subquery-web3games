@@ -6,7 +6,7 @@ import {
 import {Balance,AccountId,Moment} from "@polkadot/types/interfaces";
 import {Compact} from '@polkadot/types';
 import {SubstrateBlock} from "@subql/types/dist/interfaces";
-
+// import { FrontierEvmEvent, FrontierEvmCall } from '@subql/contract-processors/dist/frontierEvm';
 
 export async function handleBlockInfo(block: SubstrateBlock): Promise<void> {
     const record = new BlockInfo(block.block.header.hash.toString());
@@ -158,6 +158,10 @@ export async function handleTokenNonFungibleCreate(event: SubstrateEvent): Promi
     await record.save();
 }
 
+
+// export async function handleFrontierEvmCall(event: FrontierEvmCall<ApproveCallArgs>): Promise<void> {
+//
+// }
 // export async function handleAccountTransfer(event: SubstrateEvent): Promise<void> {
 //
 //     const record = new Transfer(`${event.block.block.header.number.toString()}--${event.idx}`)
